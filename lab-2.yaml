@@ -48,7 +48,7 @@ metadata:
 spec:
   containers:
   - name: mysql-client
-    image: mysql:5.7
+    image: docker.io/butuzov/mysql
     command: ["sleep"]
     args: ["3600"]
     env:
