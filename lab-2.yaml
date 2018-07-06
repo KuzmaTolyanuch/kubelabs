@@ -31,7 +31,11 @@ spec:
       valueFrom:
         secretKeyRef:
           name: mysecret
-          key: password      
+          key: password  
+    resources:
+      requests:
+        cpu: 0.1
+        memory: 256Mi
 ---
 
 kind: Pod
@@ -53,7 +57,10 @@ spec:
         secretKeyRef:
           name: mysecret
           key: password
-
+    resources:
+      requests:
+        cpu: 0.05
+        memory: 64Mi
 ---
 
 apiVersion: v1
