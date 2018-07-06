@@ -1,0 +1,65 @@
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+spec:
+  selector:
+    app: myapp
+    role: server
+  ports:
+  - port: 3306
+    name: mysql-port  
+    
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: mysql-server
+  labels:
+    app: myapp
+    role: server
+spec:
+  containers:
+  - name: mysql-server
+    image: mysql
+    ports:
+    - containerPort: 3306
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: password      
+---
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: mysql-client
+  labels:
+    app: myapp
+    role: client
+spec:
+  containers:
+  - name: mysql-client
+    image: mysql
+    command: ["sleep"]
+    args: ["360"]
+    env:
+    - name: PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: password
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  password: 123QWer45
