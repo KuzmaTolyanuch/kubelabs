@@ -23,7 +23,7 @@ metadata:
 spec:
   containers:
   - name: mysql-server
-    image: mysql
+    image: mysql:5.7
     ports:
     - containerPort: 3306
     env:
@@ -48,9 +48,9 @@ metadata:
 spec:
   containers:
   - name: mysql-client
-    image: mysql
+    image: mysql:5.7
     command: ["sleep"]
-    args: ["360"]
+    args: ["3600"]
     env:
     - name: PASSWORD
       valueFrom:
